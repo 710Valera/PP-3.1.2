@@ -15,11 +15,11 @@ public class User {
 
     @Column(name = "firstName")
     @NotEmpty(message = "First name should not be empty")
-    private String FirstName;
+    private String firstName;
 
     @Column(name = "lastName")
     @NotEmpty(message = "Last name should not be empty")
-    private String LastName;
+    private String lastName;
 
     @Column(name = "age")
     @Min(value = 0)
@@ -31,8 +31,8 @@ public class User {
     private String email;
 
     public User(String firstName, String lastName, int age, String email) {
-        FirstName = firstName;
-        LastName = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
         this.email = email;
     }
@@ -50,19 +50,19 @@ public class User {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public int getAge() {
@@ -86,20 +86,20 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(FirstName, user.FirstName) && Objects.equals(LastName, user.LastName) && Objects.equals(email, user.email);
+        return id == user.id && age == user.age && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, FirstName, LastName, age, email);
+        return Objects.hash(id, firstName, lastName, age, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", FirstName='" + FirstName + '\'' +
-                ", LastName='" + LastName + '\'' +
+                ", FirstName='" + firstName + '\'' +
+                ", LastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 '}';
