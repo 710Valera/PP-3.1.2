@@ -1,6 +1,9 @@
 package ru.opolonina.kataPP.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -10,35 +13,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstName")
+    @NotEmpty(message = "First name should not be empty")
+    private String FirstName;
 
-    @Column(name = "salary")
-    private int salary;
+    @Column(name = "lastName")
+    @NotEmpty(message = "Last name should not be empty")
+    private String LastName;
 
-    public User(String name, int salary) {
-        this.name = name;
-        this.salary = salary;
+    @Column(name = "age")
+    @Min(value = 0)
+    private int age;
+
+    @Column(name = "email")
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Invalid email")
+    private String email;
+
+    public User(String firstName, String lastName, int age, String email) {
+        FirstName = firstName;
+        LastName = lastName;
+        this.age = age;
+        this.email = email;
     }
 
     public User() {
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
     }
 
     public int getId() {
@@ -49,16 +49,59 @@ public class User {
         this.id = id;
     }
 
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && salary == user.salary && Objects.equals(name, user.name);
+        return id == user.id && age == user.age && Objects.equals(FirstName, user.FirstName) && Objects.equals(LastName, user.LastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, salary);
+        return Objects.hash(id, FirstName, LastName, age, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

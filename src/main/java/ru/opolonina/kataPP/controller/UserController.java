@@ -1,10 +1,14 @@
 package ru.opolonina.kataPP.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.opolonina.kataPP.service.UserService;
 import ru.opolonina.kataPP.model.User;
+import ru.opolonina.kataPP.service.UserService;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -13,7 +17,9 @@ public class UserController {
 
 
     private final UserService userService;
+    private final String REDIRECT = "redirect:/";
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -37,9 +43,18 @@ public class UserController {
     }
 
     @PostMapping
-    public String addUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
         userService.addUser(user);
-        return "redirect:/";
+        return REDIRECT;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUserForId(@PathVariable("id") int id) {
+        userService.deleteUserById(id);
+        return REDIRECT;
     }
 
     @GetMapping("/{id}/edit")
@@ -48,17 +63,14 @@ public class UserController {
         return "edit";
     }
 
-    @PostMapping("/{id}")
-    public String updateUser(@ModelAttribute("id") User user) {
+    @PutMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "edit";
+        }
         userService.updateUser(user);
-        return "redirect:/";
+        return REDIRECT;
 
-    }
-
-    @DeleteMapping("/{id}")
-    public String delitUserbyId(@PathVariable("id") int id) {
-        userService.deleteUserById(id);
-        return "redirect:/";
     }
 
 }

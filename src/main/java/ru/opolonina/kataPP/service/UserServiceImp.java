@@ -1,47 +1,44 @@
 package ru.opolonina.kataPP.service;
 
 import org.springframework.stereotype.Service;
-import ru.opolonina.kataPP.DAO.UserRepository;
+import ru.opolonina.kataPP.DAO.UserDao;
 import ru.opolonina.kataPP.model.User;
 
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
-    public UserServiceImp(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImp(UserDao userDao) {
+        this.userDao = userDao;
     }
 
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userDao.getAllUsers();
     }
 
     @Override
     public void addUser(User user) {
-        userRepository.save(user);
+        userDao.addUser(user);
     }
 
     @Override
     public User getUserById(int id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.get();
+        return userDao.getUserById(id);
     }
 
     @Override
     public void updateUser(User user) {
-        userRepository.save(user);
+        userDao.updateUser(user);
 
     }
 
     @Override
     public void deleteUserById(int id) {
-        userRepository.deleteById(id);
+        userDao.deleteUserById(id);
     }
 }
