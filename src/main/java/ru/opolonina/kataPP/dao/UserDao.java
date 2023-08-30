@@ -1,4 +1,4 @@
-package ru.opolonina.kataPP.DAO;
+package ru.opolonina.kataPP.dao;
 
 
 import ru.opolonina.kataPP.model.User;

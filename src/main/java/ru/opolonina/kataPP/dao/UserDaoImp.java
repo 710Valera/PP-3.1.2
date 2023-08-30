@@ -1,4 +1,4 @@
-package ru.opolonina.kataPP.DAO;
+package ru.opolonina.kataPP.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

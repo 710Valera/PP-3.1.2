@@ -1,7 +1,8 @@
 package ru.opolonina.kataPP.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.opolonina.kataPP.DAO.UserDao;
+import ru.opolonina.kataPP.dao.UserDao;
 import ru.opolonina.kataPP.model.User;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class UserServiceImp implements UserService {
 
     private final UserDao userDao;
 
+    @Autowired
     public UserServiceImp(UserDao userDao) {
         this.userDao = userDao;
     }
